@@ -27,7 +27,7 @@ inImage:
     # fgets(inputBuffer, 256, stdin)
 
     lea inputBuffer(%rip), %rdi     # arg1: pekare till buffer
-    mov $256, %rsi                  # arg2: antal tecken att läsa (inkl NULL)
+    mov $10, %rsi                  # arg2: antal tecken att läsa (inkl NULL)
     mov stdin(%rip), %rdx           # arg3: FILE* stdin
     call fgets                      # anropa fgets(buffer, size, stdin)
 
@@ -57,9 +57,13 @@ skip_call_inImage:
 
 check_blanc:
     cmpb $' ', (%rdi)
-    jne check_plus
+    jne check_nullTerminator
     incq %rdi
     jmp check_blanc
+
+check_nullTerminator:
+    cmpb $'\n', (%rdi) # 0 is asci for null
+    je call_inImage
 
 check_plus: 
     cmpb $'+', (%rdi)
