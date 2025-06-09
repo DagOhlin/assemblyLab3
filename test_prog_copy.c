@@ -43,7 +43,7 @@ int main(){
     putChar('=');
     putInt(sum);
     outImage();
-
+    
     // Försöker läsa ytterligare 12 tecken från inbufferten,
     // och lägger de lästa tecknen i utbufferten.
     // Lägger även till ett nyradstecken och talet 125 i utbufferten,
